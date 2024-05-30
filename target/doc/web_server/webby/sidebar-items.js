@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["HttpMethod"],"fn":["render_asset","visit_directries"],"struct":["RequestProccessor"],"type":["F"]};
