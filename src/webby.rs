@@ -2,8 +2,9 @@ use std::collections::HashMap;
 use std::fs;
 use std::path::PathBuf;
 
+type F = dyn Fn(&str) -> String;
 pub struct RequestProccessor {
-    handlers: HashMap<String, Box<dyn Fn(&str) -> String>>,
+    handlers: HashMap<String, Box<F>>,
 }
 
 pub enum HttpMethod {
@@ -29,6 +30,7 @@ impl Default for RequestProccessor {
         RequestProccessor::new()
     }
 }
+
 fn render_asset(file_name: &str) -> String {
     println!("hello");
     let prefix = "src/assets";
@@ -82,7 +84,7 @@ impl RequestProccessor {
         &mut self,
         method: HttpMethod,
         route: &str,
-        handler: Box<dyn Fn(&str) -> String>,
+        handler: Box<dyn Send + 'static + Fn(&str) -> String>,
     ) {
         let key = method.to_string().to_owned() + route;
         self.handlers.insert(key, handler);
