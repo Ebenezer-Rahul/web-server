@@ -4,7 +4,6 @@ mod http;
 mod template;
 mod threadpool;
 mod webby;
-use webby::HttpMethod;
 
 use self::threadpool::ThreadPool;
 
